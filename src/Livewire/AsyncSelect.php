@@ -34,6 +34,8 @@ class AsyncSelect extends Component
 
     public bool $multiple = false;
 
+    public bool $searchable = false;
+
     public ?string $endpoint = null;
 
     public ?string $selectedEndpoint = null;
@@ -99,6 +101,7 @@ class AsyncSelect extends Component
         array|Collection $options = [],
         ?string $endpoint = null,
         bool $multiple = false,
+        bool $searchable = false,
         ?string $name = null,
         string $placeholder = '',
         string $valueField = 'value',
@@ -125,6 +128,7 @@ class AsyncSelect extends Component
     ): void {
         $this->endpoint = $endpoint;
         $this->multiple = $multiple;
+        $this->searchable = $searchable;
         $this->name = $name;
         $this->valueField = $valueField;
         $this->labelField = $labelField;
