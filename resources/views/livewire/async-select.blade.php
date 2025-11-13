@@ -307,15 +307,17 @@
                     @endforeach
 
                     {{-- Search Input for Multiple --}}
-                    <input
-                        x-ref="search"
-                        type="text"
-                        wire:model.live.debounce.300ms="search"
-                        placeholder="{{ count($selectedOptions) ? '' : $placeholder }}"
-                        class="las-min-w-[120px] las-flex-1 las-border-0 las-bg-transparent las-p-0 las-text-base las-text-gray-900 placeholder:las-text-gray-400 focus:las-outline-none focus:las-ring-0"
-                        x-on:click="openDropdown()"
-                        autocomplete="off"
-                    >
+                    @if($this->searchable)
+                        <input
+                            x-ref="search"
+                            type="text"
+                            wire:model.live.debounce.300ms="search"
+                            placeholder="{{ count($selectedOptions) ? '' : $placeholder }}"
+                            class="las-min-w-[120px] las-flex-1 las-border-0 las-bg-transparent las-p-0 las-text-base las-text-gray-900 placeholder:las-text-gray-400 focus:las-outline-none focus:las-ring-0"
+                            x-on:click="openDropdown()"
+                            autocomplete="off"
+                        >
+                    @endif
                 @else
                     {{-- Single Select Display --}}
                     @if ($this->hasSelection)
@@ -326,7 +328,7 @@
                             {{-- Default single select display --}}
                             <span class="las-flex-1 las-truncate las-text-base las-text-gray-900">{{ $selectedOptions[0]['label'] }}</span>
                         @endif
-                    @else
+                    @elseif($this->searchable)
                         <input
                             x-ref="search"
                             type="text"
@@ -405,7 +407,7 @@
             class="las-absolute las-left-0 las-right-0 las-z-50 las-mt-2 las-rounded-md las-bg-white las-border las-border-gray-200 las-p-1 las-text-gray-900 las-shadow-lg las-outline-none"
         >
             {{-- Search Box (for single select when open) --}}
-            @if (! $this->multiple && $this->hasSelection)
+            @if (! $this->multiple && $this->hasSelection && $this->searchable)
                 <div class="las-mb-1 las-px-1">
                     <input
                         x-ref="searchDropdown"
